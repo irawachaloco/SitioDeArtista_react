@@ -1,8 +1,9 @@
 (function(){
 	'use strict';
 	Vue.component('entry-list', {
-	  //NOtsa, recordar que tanto vue como angular hacen una transformación al standard html
-	  //las cosas con Camelcase se transforman a '-' p.ej. globalState : global-state
+	  //Nota, recordar que tanto Vue como Angular o React hacen una transformación al standard html
+	  //las cosas con camelcase se transforman a '-' p.ej. globalState : global-state
+	  //el mismo standard utiliza Craft
 	  props: [ 'globalState'],
 	  //shortcut para v-bind es sólo ':' como abajo en el primer caso.
 	  template: '<div><ul>\
