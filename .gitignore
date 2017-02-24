@@ -74,4 +74,4 @@ _notes
 dwsync.xml
 logs/*
 
-
+/build/public/assets/js
