@@ -86,7 +86,7 @@ const config = {
     output: {
         filename: 'bundle.js',
         path: output(),
-        publicPath: '/build'
+        publicPath: '/assets/js'
     },
     devtool: devtool(),
     module: {
@@ -101,6 +101,9 @@ const config = {
     devServer: {
         // hot: true,
         // enable HMR on the server
+        proxy: {
+            "/": "http://localhost:8888"
+        }
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js"]

@@ -16,6 +16,7 @@
 	<title>{% if title is defined %}{{ title }} - {% endif %}{{ siteName }}</title>
 	<link rel="home" href="{{ siteUrl }}" />
 	<script src="/assets/js/vendors/vue.js"></script>
+	
 
 	<style type="text/css">
 		body { margin: 50px; font-family: sans-serif; background: #fff; }
@@ -48,6 +49,7 @@
 </head>
 
 <body>
+	<div id="app"></div>
 	<div id="container">
 		<header id="header">
 			<h1><a href="{{ siteUrl }}">{{ siteName }}</a></h1>
@@ -70,5 +72,6 @@
 			Copyright {{ now.year }} {{ craft.request.serverName | ucfirst }}. All rights reserved  •  Built with <a href="http://craftcms.com">Craft</a>
 		</footer>
 	</div>
+	<script src="/assets/js/bundle.js"></script>
 </body>
 </html>
