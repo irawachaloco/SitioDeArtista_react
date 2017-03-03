@@ -25,31 +25,9 @@
 	{{ entry.body }}
 
 	<h2>Recent News</h2>
-	<div id="entryList">
-		<entry-list v-bind:global-state="state"></entry-list>
-	</div>
 	
-	<script>
-	(function(){
-		var list = [
-		{% for entry in craft.entries.section('news').limit(5).find() %}
-			{
-				title: "{{ entry.title }}",
-				url: "{{ entry.url }}",
-				date: "{{ entry.dateCreated }}",
-				body: "{{ entry.body | replace('/\"/', '\\\"') | raw }}"
-			},
-		{% endfor %}
-		];
-		//con esto nos aseguramos que existe un objeto
-		if (!window.state) {
-			window.state = {};
-		}
-		//Agrego a la propiedad 'state' del global
-		window.state.entryList = list;
-	}());
-	</script>
-	<script src="/assets/js/entry_list.js"></script>
+	
+	
 {% endblock %}
 
 
