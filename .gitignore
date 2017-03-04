@@ -75,3 +75,12 @@ dwsync.xml
 logs/*
 
 /build/public/assets/js
+
+# Idea
+/.idea
+SitioDeArtista_react.iml
+
+# Docker
+.env
+mysql_data
+notes.md
