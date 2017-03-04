@@ -40,12 +40,7 @@ const plugins = () => {
             new webpack.NamedModulesPlugin(),
             // prints more readable module names in the browser console on HMR updates
         ];
-        case 'build': return [
-            new webpack.ProvidePlugin({
-                // 'Promise': 'es6-promise',
-                'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-            }),
-        ];
+        case 'build': return [];
         default: return [];
     }
 };
