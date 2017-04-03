@@ -1,16 +1,26 @@
 import * as React from "react";
+import * as Slider from "react-slick";
+import * as rx from "rxjs";
+
+const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+      };
 export const Content = () => 
     <div className="content">
       <section className="home content-box-1200">
         <div className="flex">
-          <div className="slider flex-2">
+          <Slider {...settings} className="slider flex-2">
             <div className="slide-item">
-              <img src="assets/images/happyPlace0001.jpg" alt=""/>
+              <img src="assets/images/ecce-homo.jpg" alt=""/>
             </div>
             <div className="slide-item">
-              <img src="assets/images/screen-shot-2015-02-05-at-12-46-23-pm-7-creepy-vintage-medical-curiosities-to-scare-you-out-of-getting-sick-again-ever-png-249181.jpg" alt=""/>
+              <img src="assets/images/cafe.jpg" alt=""/>
             </div>
-          </div>
+          </Slider>
           <div className="news flex-1">
             <h2>Somme news</h2>
             <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
@@ -18,3 +28,5 @@ export const Content = () =>
         </div>
       </section>
     </div>;
+
+window.rx = rx;
