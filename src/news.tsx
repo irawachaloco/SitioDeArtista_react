@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as Slider from "react-slick";
 import * as rx from "rxjs";
 
 const settings = {

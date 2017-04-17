@@ -1,27 +1,40 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import {Observable, Subject} from "rxjs";
+import {Observable, BehaviorSubject, Subject} from "rxjs";
 import "./style.styl";
-//En typescript un módulo es un archivo u una biblioteca, aquí usamos sitema de módulos:
-import {NavigationBar} from "./navigationBar";
+import {ReactiveNavBar} from "./navigation/navigationBar";
 import {Content} from "./content";
 import {Works} from "./works";
-import {ContentObserver} from "./contentObserver";
+import {IAppState} from "./models/appState";
+import {Store} from "./store";
 
-class SectionObserver extends ContentObserver<string>{}
+/**
+ * Nota sobre el sistema de módulos.
+ *
+ * En TypeScript cada archivo es considerado un "módulo" y puede ser "importado" o referenciado desde otro módulo
+ * mediante la instrucción `import {object_name} from "module_name"`. Aquí, object_name es el nombre de uno de los
+ * elementos exportados en el módulo referido.
+ */
 
+const initialState: IAppState = {
+    selectedSection: 'home',
+    works: [],
+    news: []
+};
 
-var currentSection = "home";
+const sectionStream = new Subject<string>();
+const changeSection = (section: string) =>
+    (s: IAppState) => ({selectedSection: section, works: s.works, news: s.news} as IAppState);
 
-const action = (s:string) => {section.next(s)};
+// Vamos a usar un Store para controlar nuestro estado
+const store = new Store(initialState, [
+    sectionStream.map(changeSection)
+]);
 
-//un 'Subject' es observable –se puede ver, saca cosas– y observador –por el que entran las cosas– al mismo tiempo.
-const section = new Subject();
+const state = store.asObservable();
 
 const Main = () =>  <div>
-                        <NavigationBar navigationAction={action}/>
-                        <div>{currentSection}</div>
-                        <SectionObserver initialState={currentSection} stream={section}/>
+                        <ReactiveNavBar navigationAction={s => {sectionStream.next(s)}} initialState={initialState.selectedSection} stream={state.map(s => s.selectedSection)} />
                         <Content/>
                         <Works/>
                     </div>;
