@@ -2,7 +2,7 @@ import {Observable} from 'rxjs';
 import {INewsEntry} from './models/newsEntry';
 import {IWorksEntry} from './models/worksEntry';
 
-const listCall = (entities: string) => Observable.ajax({ url:`/api/${entities}`}).map(r => r.response);
+const listCall = (entities: string) => Observable.ajax({ url:`/api/${entities}`}).map(r => r.response.data);
 
 class Client {
     news: () => Observable<INewsEntry[]> = () => listCall('news');

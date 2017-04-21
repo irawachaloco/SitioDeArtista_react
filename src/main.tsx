@@ -5,8 +5,9 @@ import "./style.styl";
 import {ReactiveNavBar} from "./navigation/navigationBar";
 import {Content} from "./content";
 import {Works} from "./works";
-import {IAppState} from "./models/appState";
+import { IAppState, initialState } from "./models/appState";
 import {Store} from "./store";
+import {client} from "./client";
 
 /**
  * Nota sobre el sistema de módulos.
@@ -16,28 +17,31 @@ import {Store} from "./store";
  * elementos exportados en el módulo referido.
  */
 
-const initialState: IAppState = {
-    selectedSection: 'home',
-    works: [],
-    news: []
-};
-
-const sectionStream = new Subject<string>();
 const changeSection = (section: string) =>
     (s: IAppState) => ({selectedSection: section, works: s.works, news: s.news} as IAppState);
 
+const sectionStream = new Subject<string>();
+const sectionActionStream = sectionStream.map(changeSection);
+const newsStream = client.news().map(n => (s: IAppState) => ({selectedSection: s.selectedSection, works: s.works, news: n} as IAppState) );
+
 // Vamos a usar un Store para controlar nuestro estado
 const store = new Store(initialState, [
-    sectionStream.map(changeSection)
+    sectionActionStream,
+    newsStream
 ]);
 
 const state = store.asObservable();
 
-const Main = () =>  <div>
-                        <ReactiveNavBar navigationAction={s => {sectionStream.next(s)}} initialState={initialState.selectedSection} stream={state.map(s => s.selectedSection)} />
-                        <Content/>
-                        <Works/>
-                    </div>;
+const Main = () =>
+    <div>
+        <ReactiveNavBar 
+            navigationAction={s => {sectionStream.next(s)}}
+            initialState={initialState.selectedSection}
+            stream={state.map(s => s.selectedSection)} />
+        <Content
+            initialState={initialState.news}
+            stream={state.map(s => s.news)} />
+    </div>;
 
 ReactDOM.render(
     <Main/>,

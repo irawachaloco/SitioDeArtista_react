@@ -11,3 +11,9 @@ export interface IAppState {
     works: IWorksEntry[],
     news: INewsEntry[]
 }
+
+export const initialState: IAppState = {
+    selectedSection: 'home',
+    works: [],
+    news: []
+};

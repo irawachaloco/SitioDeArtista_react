@@ -42,6 +42,7 @@ build/craft/app/*
 build/craft/storage/runtime/*
 build/craft/storage/backups/*
 build/craft/config/*
+!build/craft/config/elementapi.php
 
 build/craft/db.php
 build/craft/general.php

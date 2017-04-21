@@ -1,6 +1,9 @@
 import * as React from "react";
 import * as Slider from "react-slick";
 import * as rx from "rxjs";
+import { client } from './client';
+import { INewsEntry } from "./models/newsEntry";
+import { IContentObserverProps, ContentObserver } from "./contentObserver";
 
 const settings = {
         dots: true,
@@ -10,40 +13,15 @@ const settings = {
         slidesToScroll: 1
       };
 
-interface IContentState {data: any[]}
-export class Content extends React.Component<undefined, IContentState> {
-  constructor() {
-    super();
-    this.state = {
-      data: [],
-    };
+interface IContentState {news: INewsEntry[]}
 
-    rx.Observable.ajax({
-      url:'/api/news'
-    })
-      .map(r => r.response)
-      .subscribe(
-        next => {
-          this.setState((prevState) => ({
-            data: next.data
-          }));
-          console.log(next.data);
-        },
-        error => {
-          console.log('error', error);
-        },
-        () => {
-          console.log('complete');
-        }
-      );
-  }
-  render() {
-      return (
+const NewsContent = (props: IContentState) => 
+      (
         <div className="content">
           <section className="home content-box-1200">
             <div className="flex">
               <Slider {...settings} className="slider flex-2">
-                {this.state.data.length > 0 ? this.state.data.map((entry, index)=> {
+                {props.news.length > 0 ? props.news.map((entry, index)=> {
                   return (
                     <div className="slide-item" key={index}>
                       <h1>{ entry.title }</h1>
@@ -59,12 +37,19 @@ export class Content extends React.Component<undefined, IContentState> {
           </section>
         </div>
         );
+
+// Ahora vamos a extender nuestro control y lo vamos a convertir en un control que acepta Observables:
+interface IReactContentProps extends IContentObserverProps<INewsEntry[]> {
+}
+export class Content extends ContentObserver<INewsEntry[], IReactContentProps> {
+    navigationAction: (a: INewsEntry) => void;
+    constructor (props: IReactContentProps) {
+        super(props);
+    }
+    render () {
+        return <NewsContent news={this.state.data}  />;
     }
 }
-
-
-
-
 
 
 
