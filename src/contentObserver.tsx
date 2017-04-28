@@ -46,13 +46,12 @@ export class ContentObserver<T, P extends IContentObserverProps<T>> extends Reac
             .subscribe(
                 next => {
                     this.setState((prevState: T) => ({ data: next }));
-                    console.log(next);
                 },
                 error => {
                     console.log('error', error);
                 },
                 () => {
-                    console.log('complete');
+                    //console.log('complete');
                 }
             );
     }

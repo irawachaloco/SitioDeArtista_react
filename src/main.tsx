@@ -1,14 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import {Observable, BehaviorSubject, Subject} from "rxjs";
+import { Subject} from "rxjs";
 import "./style.styl";
 import {ReactiveNavBar} from "./navigation/navigationBar";
 import {Content} from "./content";
-import { IAppState, initialState, changeSection, updateNews, updateWorks } from "./models/appState";
+import { initialState, changeSection, updateNews, updateWorks } from "./models/appState";
 import {Store} from "./store";
 import { client } from "./client";
-import { INewsEntry } from "./models/newsEntry";
-import { IWorksEntry } from "./models/worksEntry";
 
 /**
  * Nota sobre el sistema de módulos.
