@@ -17,3 +17,14 @@ export const initialState: IAppState = {
     works: [],
     news: []
 };
+
+type Action<T> = (t: T) => (s: IAppState) => IAppState;  
+
+export const changeSection:Action<string> = (section) =>
+    (s) => ({selectedSection: section, works: s.works, news: s.news});
+
+export const updateNews:Action<INewsEntry[]> = (news) =>
+    (s) => ({selectedSection: s.selectedSection, works: s.works, news: news});
+
+export const updateWorks:Action<IWorksEntry[]> = (works) =>
+    (s) => ({selectedSection: s.selectedSection, works: works, news: s.news});

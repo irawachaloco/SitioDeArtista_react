@@ -1,1 +1,5 @@
-export interface IWorksEntry {}
+export interface IWorksEntry {
+    jsonUrl: string;
+    title: string;
+    url: string;
+}

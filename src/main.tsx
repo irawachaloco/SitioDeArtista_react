@@ -4,10 +4,11 @@ import {Observable, BehaviorSubject, Subject} from "rxjs";
 import "./style.styl";
 import {ReactiveNavBar} from "./navigation/navigationBar";
 import {Content} from "./content";
-import {Works} from "./works";
-import { IAppState, initialState } from "./models/appState";
+import { IAppState, initialState, changeSection, updateNews, updateWorks } from "./models/appState";
 import {Store} from "./store";
-import {client} from "./client";
+import { client } from "./client";
+import { INewsEntry } from "./models/newsEntry";
+import { IWorksEntry } from "./models/worksEntry";
 
 /**
  * Nota sobre el sistema de módulos.
@@ -17,17 +18,17 @@ import {client} from "./client";
  * elementos exportados en el módulo referido.
  */
 
-const changeSection = (section: string) =>
-    (s: IAppState) => ({selectedSection: section, works: s.works, news: s.news} as IAppState);
-
 const sectionStream = new Subject<string>();
 const sectionActionStream = sectionStream.map(changeSection);
-const newsStream = client.news().map(n => (s: IAppState) => ({selectedSection: s.selectedSection, works: s.works, news: n} as IAppState) );
+
+const newsStream = client.news().map(updateNews);
+const worksStream = client.works().map(updateWorks);
 
 // Vamos a usar un Store para controlar nuestro estado
 const store = new Store(initialState, [
     sectionActionStream,
-    newsStream
+    newsStream,
+    worksStream
 ]);
 
 const state = store.asObservable();
@@ -39,8 +40,8 @@ const Main = () =>
             initialState={initialState.selectedSection}
             stream={state.map(s => s.selectedSection)} />
         <Content
-            initialState={initialState.news}
-            stream={state.map(s => s.news)} />
+            initialState={initialState}
+            stream={state} />
     </div>;
 
 ReactDOM.render(
