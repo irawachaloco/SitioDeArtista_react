@@ -14,6 +14,16 @@ export const WorksContent = (props: IContentState) =>
                   return (
                     <div className="grid-item" key={index}>
                       <h1>{ entry.title }</h1>
+                      <div>{ entry.authorName }</div>
+                      {(entry.subWorks || []).map( w => {
+                        return (
+                          <div>
+                            <div>{ w.title }</div>
+                            <div>{ w.year }</div>
+                          </div>
+                          
+                        );
+                      })} 
                     </div>
                     );
                 }) : <div></div>}

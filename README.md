@@ -4,6 +4,18 @@ Sitio de Artista
 Este repositorio contendrá plantillas y estructuras básicas para preparar sitios personalizados para artistas o pequeñas galerías.
 El objetivo es aprender React.js y producir una base flexible para desarrollar y presentar multiples contenidos.
 
+
+Archivos importantes:
+tsconfig.json - donde configuramos el directorio de salida para el 'bundle' js
+webpack.config.json
+build/craft/config/elementapi.php - marca qué datos estamos regresando, 'endpoints'
+
+
+Referencias:
+https://github.com/craftcms/element-api
+https://nystudio107.com/blog/lazy-loading-with-the-element-api-vuejs
+
+
 Alternativas para 
 ScrollMagic:
 https://github.com/gilbox/react-spark-scroll
@@ -39,3 +51,4 @@ $ npm run start
 2. Crear un folder `mysql_data` en el directorio del projecto
 2. Iniciar con `docker-compose up -d`.
 3. Detener con `docker-compose down`.
+

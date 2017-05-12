@@ -22,6 +22,8 @@ export const NewsContent = (props: IContentState) =>
                   return (
                     <div className="slide-item" key={index}>
                       <h1>{ entry.title }</h1>
+                      <div>{ entry.date }</div>
+                      <img src={ entry.image } alt=""/>
                     </div>
                     );
                 }) : <div></div>}
