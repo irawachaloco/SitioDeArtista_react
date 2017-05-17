@@ -6,8 +6,10 @@ import { NewsContent} from "./news"
 import { WorksContent } from "./works"
 import { IAppState } from "./models/appState";
 
-// Ahora vamos a extender nuestro control y lo vamos a convertir en un control que acepta Observables:
+// Aquí estamos extendiendo el control
+// para que acepte 'Observables':
 interface IReactContentProps extends IContentObserverProps<IAppState> {}
+
 export class Content extends ContentObserver<IAppState, IReactContentProps> {
     constructor (props: IReactContentProps) {
         super(props);
