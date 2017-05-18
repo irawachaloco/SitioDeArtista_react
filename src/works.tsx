@@ -17,7 +17,7 @@ export const WorksContent = (props: IContentState) =>
                       <div>{ entry.authorName }</div>
                       {(entry.subWorks || []).map( w => {
                         return (
-                          <div>
+                          <div key={w.title}>
                             <div>{ w.title }</div>
                             <div>{ w.year }</div>
                           </div>
