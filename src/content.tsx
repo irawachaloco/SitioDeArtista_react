@@ -4,6 +4,7 @@ import { client } from './client';
 import { IContentObserverProps, ContentObserver } from "./contentObserver";
 import { NewsContent} from "./news"
 import { WorksContent } from "./works"
+import { AuthorsContent } from "./authors"
 import { IAppState } from "./models/appState";
 
 // Aquí estamos extendiendo el control
@@ -16,9 +17,11 @@ export class Content extends ContentObserver<IAppState, IReactContentProps> {
     }
     render () {
         if(this.state.data.selectedSection === 'home'){
-          return <NewsContent news={this.state.data.news}  />;
-        } else {
-          return <WorksContent works={this.state.data.works}  />;
+            return <NewsContent news={this.state.data.news}  />;
+        } else if (this.state.data.selectedSection === 'works') {
+            return <WorksContent works={this.state.data.works}  />;
+        } else if (this.state.data.selectedSection === 'authorsList') {
+            return <AuthorsContent authors={this.state.data.authors}  />;
         }
         
     }

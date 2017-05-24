@@ -4,7 +4,7 @@ import { Subject} from "rxjs";
 import "./style.styl";
 import {ReactiveNavBar} from "./navigation/navigationBar";
 import {Content} from "./content";
-import { initialState, changeSection, updateNews, updateWorks } from "./models/appState";
+import { initialState, changeSection, updateNews, updateWorks, updateAuthors } from "./models/appState";
 import {Store} from "./store";
 import { client } from "./client";
 
@@ -21,12 +21,14 @@ const sectionActionStream = sectionStream.map(changeSection);
 
 const newsStream = client.news().map(updateNews);
 const worksStream = client.works().map(updateWorks);
+const authorsStream = client.authors().map(updateAuthors);
 
 // Vamos a usar un Store para controlar nuestro estado
 const store = new Store(initialState, [
     sectionActionStream,
     newsStream,
-    worksStream
+    worksStream,
+    authorsStream
 ]);
 
 const state = store.asObservable();

@@ -38,6 +38,17 @@ return [
                 ];
             },
         ],
+        'api/authors' => [
+            'elementType' => 'Entry',
+            'criteria' => ['section' => 'authorsList'],
+            'transformer' => function(EntryModel $entry) {
+                return [
+                    'title' => $entry->title,
+                    'url' => $entry->url,
+                    'jsonUrl' => UrlHelper::getUrl("api/authorsList/{$entry->id}"),
+                ];
+            },
+        ],
         /*'matrix-blocks/<blockId:\d+>' => function($blockId) {
             return [
                 'elementType' => 'MatrixBlock',

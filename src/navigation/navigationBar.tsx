@@ -35,6 +35,7 @@ export const NavigationBar = (props: NavigationProps) =>
             <div className="menu border-bottom padding-1">
                 <MenuBtn label="Home" section="home" navigationAction={props.navigationAction} selectedSection={props.selectedSection} />
                 <MenuBtn label="Works" section="works" navigationAction={props.navigationAction} selectedSection={props.selectedSection} />
+                <MenuBtn label="Authors" section="authorsList" navigationAction={props.navigationAction} selectedSection={props.selectedSection} />
             </div>
         </div>
     </div>;
